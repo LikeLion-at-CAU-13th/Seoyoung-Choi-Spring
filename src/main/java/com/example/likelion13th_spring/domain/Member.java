@@ -2,6 +2,7 @@ package com.example.likelion13th_spring.domain;
 
 import com.example.likelion13th_spring.enums.Role;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ public class Member {
     private String address;
     private String email;
     private String phoneNumber;
+    private Integer age;
 
     @Enumerated(EnumType.STRING)
     private Role role; // 판매자면 SELLER, 구매자면 BUYER
@@ -36,8 +38,6 @@ public class Member {
     public void useDeposit(int money) {
         this.deposit -= money;
     }
-<<<<<<< Updated upstream
-=======
 
     //생성자
     @Builder
@@ -57,5 +57,4 @@ public class Member {
         return Role.SELLER.equals(this.role);
     }
     public boolean isBuyer() {return Role.BUYER.equals(this.role);}
->>>>>>> Stashed changes
 }
