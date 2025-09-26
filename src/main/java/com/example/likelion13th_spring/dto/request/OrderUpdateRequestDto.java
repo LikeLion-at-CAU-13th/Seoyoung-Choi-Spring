@@ -9,5 +9,5 @@ public class OrderUpdateRequestDto {
     private String recieverName;
     private String address;
     private String addressDetail;
-    private Long postcode;
+    private String postcode;
 }
