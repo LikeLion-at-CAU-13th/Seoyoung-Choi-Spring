@@ -26,6 +26,9 @@ public class Orders extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private DeliverStatus deliverStatus; // 배송상태
 
+    @Column
+    private String receiverName;
+
     @ManyToOne
     @JoinColumn(name ="buyer_id")
     private Member buyer;
