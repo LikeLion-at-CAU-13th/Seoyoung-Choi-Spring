@@ -26,6 +26,9 @@ public class Orders extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private DeliverStatus deliverStatus; // 배송상태
 
+    @Column
+    private String receiverName;
+
     @ManyToOne
     @JoinColumn(name ="buyer_id")
     private Member buyer;
@@ -40,7 +43,7 @@ public class Orders extends BaseTimeEntity {
     @JoinColumn(name = "shipping_address_id")
     private ShippingAddress shippingAddress;
 
-    public void update(String phoneNumber, String address, String addressDetail, Long postcode){
+    public void update(String phoneNumber, String address, String addressDetail, String postcode){
         this.shippingAddress.setPhoneNumber((phoneNumber));
         this.shippingAddress.setAddress(address);
         this.shippingAddress.setAddressDetail(addressDetail);

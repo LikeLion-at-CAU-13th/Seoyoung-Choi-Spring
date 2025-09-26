@@ -18,4 +18,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // week 18 과제
     List<Member> findByNameStartingWith(String prefix);
     Page<Member> findByAgeGreaterThanEqualOrderByNameAsc(int age, Pageable pageable);
+
+    // 이름 중복 검사 쿼리
+    boolean existsByName(String name);
+
 } //Spring Data JPA 가 자동으로 인식 + 내부적으로 JPQL 쿼리 생성해줌.

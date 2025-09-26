@@ -6,7 +6,8 @@ import lombok.Getter;
 public class OrderUpdateRequestDto {
     private Long memberId;
     private String phoneNumber;
+    private String recieverName;
     private String address;
     private String addressDetail;
-    private Long postcode;
+    private String postcode;
 }

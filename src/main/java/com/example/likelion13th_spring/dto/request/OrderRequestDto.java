@@ -18,12 +18,13 @@ import java.util.List;
 public class OrderRequestDto {
     private Long memberId;
     private DeliverStatus deliverStatus = DeliverStatus.PREPARATION;
+    private String receiverName;
 
     // 신규 배송 정보 생성
     private String phoneNumber;
     private String address;
     private String addressDetail;
-    private Long postcode;
+    private String postcode;
 
     // 기존 배송 정보 선택
     private Long shippingAddressId;
@@ -59,6 +60,7 @@ public class OrderRequestDto {
         return Orders.builder()
                 .buyer(buyer)
                 .deliverStatus(deliverStatus)
+                .receiverName(receiverName)
                 .shippingAddress(shippingAddress)
                 .build();
     }
