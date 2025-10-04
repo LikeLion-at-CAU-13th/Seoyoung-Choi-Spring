@@ -26,7 +26,7 @@ public class ShippingAddress extends BaseTimeEntity{
     @Column(nullable = false)
     private String addressDetail;
     @Column(nullable = false)
-    private String postcode;
+    private Long postcode;
 
     @ManyToOne
     @JoinColumn(name = "buyer_id")
@@ -37,7 +37,7 @@ public class ShippingAddress extends BaseTimeEntity{
     private List<Orders> orders = new ArrayList<>();
 
     @Builder
-    public ShippingAddress(String phoneNumber, String address, String addressDetail, String postcode, Member buyer) {
+    public ShippingAddress(String phoneNumber, String address, String addressDetail, Long postcode, Member buyer) {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.addressDetail = addressDetail;
