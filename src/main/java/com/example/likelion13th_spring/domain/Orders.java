@@ -43,7 +43,7 @@ public class Orders extends BaseTimeEntity {
     @JoinColumn(name = "shipping_address_id")
     private ShippingAddress shippingAddress;
 
-    public void update(String phoneNumber, String address, String addressDetail, String postcode){
+    public void update(String phoneNumber, String address, String addressDetail, Long postcode){
         this.shippingAddress.setPhoneNumber((phoneNumber));
         this.shippingAddress.setAddress(address);
         this.shippingAddress.setAddressDetail(addressDetail);

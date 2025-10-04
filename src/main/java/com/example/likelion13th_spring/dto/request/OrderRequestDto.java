@@ -24,7 +24,7 @@ public class OrderRequestDto {
     private String phoneNumber;
     private String address;
     private String addressDetail;
-    private String postcode;
+    private Long postcode;
 
     // 기존 배송 정보 선택
     private Long shippingAddressId;
