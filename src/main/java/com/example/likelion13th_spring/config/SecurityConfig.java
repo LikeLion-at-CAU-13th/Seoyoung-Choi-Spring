@@ -1,5 +1,6 @@
 package com.example.likelion13th_spring.config;
 
+import com.example.likelion13th_spring.jwt.JwtAuthenticationFilter;
 import com.example.likelion13th_spring.service.CustomOAuth2UserService;
 import com.example.likelion13th_spring.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +11,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Arrays;
@@ -24,6 +27,7 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailService; // UserDetailService DI. 의존성 주입
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final JwtAuthenticationFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,14 +35,18 @@ public class SecurityConfig {
         http
                 .cors((SecurityConfig::corsAllow)) // Cors 설정
                 .csrf(AbstractHttpConfigurer::disable) // CSRF 비활성화
+                .sessionManagement((manager) -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// 세션 로그인 안함
+                .httpBasic(AbstractHttpConfigurer::disable) // http basic auth 기반 로그인 인증창 뜨지 않게
+                .formLogin(AbstractHttpConfigurer::disable) // 기본 로그인 페이지 뜨지 않게.
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/join", "/login","/oauth2/**","/login/oauth2/**","h2-console/**","/error").permitAll() // 회원가입, 로그인은 모두 허용
+                        .requestMatchers("/join", "/login").permitAll() // 모두 허용
                         .anyRequest().authenticated())
-                        .oauth2Login(oauth -> oauth
-                                .userInfoEndpoint(userInfo -> userInfo
-                                        .userService(customOAuth2UserService)
-                                )
-                        )
+                        //.requestMatchers("/**").authenticated()) // 인증된 사용자만 허용
+//                        .oauth2Login(oauth -> oauth
+//                                .userInfoEndpoint(userInfo -> userInfo
+//                                        .userService(customOAuth2UserService)
+//                                )
+//                        )
 
                             //.requestMatchers("/**").authenticated()) // 나머지는 인증된 사용자만 허용
 
@@ -46,6 +54,7 @@ public class SecurityConfig {
                 //.logout(Customizer.withDefaults())
                 .userDetailsService(customUserDetailService)
         ;
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // 해당 필터 전에 jwtFilter이 걸리도록
 
         return http.build();
     }
