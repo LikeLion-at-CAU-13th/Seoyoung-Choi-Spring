@@ -53,7 +53,7 @@ public class ProductController {
     }
 
     @GetMapping("/my")
-    public ResponseEntity<List<ProductResponseDto>> getMyProducts(Authentication authentication) {
+    public ResponseEntity<List<ProductResponseDto>> getMyProducts() {
         String name = PrincipalHandler.getUsernameFromPrincipal();
         List<ProductResponseDto> products = productService.getMyProducts(name);
         return ResponseEntity.ok(products);
