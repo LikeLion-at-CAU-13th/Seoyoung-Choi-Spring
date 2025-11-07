@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -88,5 +89,12 @@ public class ProductService {
 
         // 삭제
         productRepository.delete(product);
+    }
+
+    public List<ProductResponseDto> getMyProducts(String name){
+        Member seller = memberRepository.findByName(name).orElseThrow(()-> new IllegalArgumentException("회원 찾을 수 없음."));
+
+        List<Product> products = productRepository.findBySeller(seller);
+        return products.stream().map(ProductResponseDto::fromEntity).collect(Collectors.toList());
     }
 }

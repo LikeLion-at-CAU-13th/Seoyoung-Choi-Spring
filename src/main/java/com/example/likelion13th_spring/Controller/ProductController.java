@@ -1,5 +1,6 @@
 package com.example.likelion13th_spring.Controller;
 
+import com.example.likelion13th_spring.config.PrincipalHandler;
 import com.example.likelion13th_spring.domain.Member;
 import com.example.likelion13th_spring.dto.request.ProductRequestDto;
 import com.example.likelion13th_spring.dto.request.ProductUpdateRequestDto;
@@ -7,6 +8,7 @@ import com.example.likelion13th_spring.dto.request.ProductDeleteRequestDto;
 import com.example.likelion13th_spring.dto.response.ProductResponseDto;
 import com.example.likelion13th_spring.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +50,13 @@ public class ProductController {
                                                 @RequestBody ProductDeleteRequestDto dto) {
         productService.deleteProduct(id, dto);
         return ResponseEntity.ok("상품이 성공적으로 삭제되었습니다.");
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<ProductResponseDto>> getMyProducts() {
+        String name = PrincipalHandler.getUsernameFromPrincipal();
+        List<ProductResponseDto> products = productService.getMyProducts(name);
+        return ResponseEntity.ok(products);
     }
 }
 

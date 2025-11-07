@@ -33,3 +33,5 @@ spring:
               - email
               - profile
             redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+jwt:
+  secret: "+WYgqURcgHBqaqaAk4AOT5xTsAaJo+H1LKi6gAIk6X6+0kaWSCwnLL8BtnrhVdYxnaxbRU4MRd+OXqe2UwrDli8mywn13MZW1JeiuJBWDXCa+P1BUJDK5x5wBzYe7ImXtAUF/Bz24INw+Lrt1NStiZ3HXnO38sqdzZrY+vizTO5rQ4R+nv4sM5Uo8wsG5lGqqdWdMJzeEIwprKrruxq5/ClGDr8AIiuL831q7wN/Bz0P+0mkz1n0vUpeN0sAQfW2E0RxUPCtNLE2iW+H5hQp4CFyKkX9OKAC8DTvz51/C8t2C4fX0rrYWtSyBkOlNvXuf4LUtPsmm3aIIizS+JqJeg=="
